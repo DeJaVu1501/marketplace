@@ -26,6 +26,6 @@ const LoginForm = ({onLogin}) => {
     </div>
   )
 }
-
+///
 const ConnectLog = connect(null, {onLogin: actionFullLogin})(LoginForm)
 export default ConnectLog
