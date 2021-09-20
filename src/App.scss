@@ -1,0 +1,60 @@
+@import "~bootstrap/scss/bootstrap";
+
+.Navbar {
+    background: #002f34;
+    display: flex;
+
+    .header {
+        img {
+            width: 20%;
+        }
+
+        #basic-navbar-nav {
+            display: flex;
+            justify-content: end;
+
+            a {
+                color: white;
+                text-decoration: none;
+
+            }
+
+            a:hover {
+                margin-top: 1px ;
+            }
+        }
+    }
+    
+}
+
+.divLogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .pwd-container {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        img {
+            position: absolute;
+            cursor: pointer;
+            width: 12%;
+            top: 50%;
+            left: 85%;
+        }
+    }
+}
+
+
+footer {
+    background: #002f34;
+    color: white;
+    padding-top: 25px;
+    a {
+        color: white;
+        text-decoration: none;
+    }
+}
+
