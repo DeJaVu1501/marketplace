@@ -56,34 +56,34 @@ export const actionFullLogin = (login, password) => {
   }
 }
 
-// const actionRegister = (login,password) =>
-//     actionPromise('reg',shopGQL(`mutation reg($login: String!, $password: String!){
-//         createUser(login:$login, password: $password){
-//         _id login
-//     }
-// }`,{query: {login,password}}))
-
-// export const actionFullRegister = (login,password) => 
-//   async dispatch => {
-//     let payload = await dispatch(actionRegister(login,password))
-//     if(payload.data.UserUpsert != null){
-//       await dispatch(actionFullLogin(login,password))
-//     }
-//   }
-
-export const actionReg = (login, password) =>
-    async dispatch => {
-        let loginData = await dispatch(actionPromise('reg', shopGQL(
-            `mutation reg($login: String!, $password: String!){
-                createUser(login:$login, password: $password){
-                  _id
-                }
-              }`, { login, password })))
-        if (loginData && loginData.data && (loginData.data.createUser != null)) {
-            dispatch(actionLogin(login, password))
-            console.log(loginData.data)
-        }
+const actionRegister = (login,password) =>
+    actionPromise('reg',shopGQL(`mutation reg($login: String!, $password: String!){
+        createUser(login:$login, password: $password){
+        _id login
     }
+}`,{query: {login,password}}))
+
+export const actionFullRegister = (login,password) => 
+  async dispatch => {
+    let payload = await dispatch(actionRegister(login,password))
+    if(payload.data.UserUpsert != null){
+      await dispatch(actionFullLogin(login,password))
+    }
+  }
+
+// export const actionReg = (login, password) =>
+//     async dispatch => {
+//         let loginData = await dispatch(actionPromise('reg', shopGQL(
+//             `mutation reg($login: String!, $password: String!){
+//                 createUser(login:$login, password: $password){
+//                   _id
+//                 }
+//               }`, { login, password })))
+//         if (loginData && loginData.data && (loginData.data.createUser != null)) {
+//             dispatch(actionLogin(login, password))
+//             console.log(loginData.data)
+//         }
+//     }
 
 export const actionTypeAd = () =>
     actionPromise('type Ad', shopGQL(`

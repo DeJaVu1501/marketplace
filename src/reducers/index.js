@@ -25,7 +25,7 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
     }
     return state
   }
-  
+
   function promiseReducer(state={}, {type, status, payload, error, name}){
       if (type === 'PROMISE'){
           return {
@@ -38,7 +38,9 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
 
 
 
-const rootReducer = combineReducers({authReducer, promiseReducer});
+  const rootReducer = combineReducers({
+    promiseReducer,authReducer
+})
 const store = createStore(rootReducer, applyMiddleware(thunk)) 
 
 export default store

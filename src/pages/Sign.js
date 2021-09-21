@@ -1,7 +1,7 @@
 import React from "react";
 import {connect}   from 'react-redux';
 import {useState} from "react";
-import {actionReg} from '../actions'
+import {actionFullRegister} from '../actions'
 import {Redirect} from 'react-router-dom';
 
 const Sign = ({onSign,loggedIn}) => {
@@ -27,5 +27,5 @@ const Sign = ({onSign,loggedIn}) => {
     )
 }
 
-const ConnectSign = connect(store => ({loggedIn: (store.authReducer.login || store.login)}) , {onSign: actionFullRegister})(Sign)
+const ConnectSign = connect(store=> ({loggedIn:store.authReducer.login }),{onSign: actionFullRegister})(Sign)
 export default ConnectSign
