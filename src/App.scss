@@ -33,6 +33,10 @@
     justify-content: center;
     align-items: center;
 
+    .login-container {
+        display: flex;
+        flex-direction: column;
+    }
     .pwd-container {
         display: flex;
         flex-direction: column;
@@ -45,6 +49,43 @@
             left: 85%;
         }
     }
+}
+
+.divSign {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .login-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .pwd-container1 {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+    .pwd-container2 {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+    img {
+        position: absolute;
+        cursor: pointer;
+        width: 12%;
+        top: 50%;
+        left: 85%;
+    }
+}
+
+.ad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    margin: 0 auto;
 }
 
 

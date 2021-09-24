@@ -18,7 +18,7 @@ import {
 } from "react-router-dom";
 
 import TypeAd, {Home} from "./pages/Home";
-import ConnectSign from './pages/Login';
+import ConnectSign from './pages/Sign';
 import {Login} from "./pages/Login";
 import {Instruction} from "./pages/Instriction";
 import {Advertisment} from "./pages/Advertisment";
@@ -34,7 +34,7 @@ function App() {
           <Navibar />
           <Footer />
           <Switch>
-            <Route exact path='/' component={Home}/>
+            <Route exact path='/' component={TypeAd}/>
             <Route path='/sign' component={ConnectSign}/>
             <Route path='/login' component={ConnectLog}/>
             <Route path='/instruction' component={Instruction} />

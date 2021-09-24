@@ -3,8 +3,8 @@ import {connect}   from 'react-redux';
 import {useState} from "react";
 import {actionFullLogin} from '../actions'
 
-import showPwdImg from './3844476-eye-see-show-view-watch_110339.svg';
-import hidePwdImg from './3844477-disable-eye-inactive-see-show-view-watch_110343.svg';
+import showPwdImg from '../images/3844476-eye-see-show-view-watch_110339.svg';
+import hidePwdImg from '../images/3844477-disable-eye-inactive-see-show-view-watch_110343.svg';
 
 const LoginForm = ({onLogin}) => {
   const [login,setLogin] = useState('')
@@ -13,7 +13,7 @@ const LoginForm = ({onLogin}) => {
   return (
     <div className="divLogin">
         <h4>Войти</h4>
-        <div>
+        <div className="login-container">
             <label>Nickname</label>
             <input value={login} onChange={e => setLogin(e.target.value)} placeholder="Nickname"></input>
         </div>

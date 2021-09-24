@@ -13,7 +13,7 @@ export const actionPending = name => ({type: 'PROMISE', status: 'PENDING', name}
 export const actionResolved = (name, payload) => ({type: 'PROMISE', status: 'RESOLVED', name, payload})
 export const actionRejected = (name, error) => ({type: 'PROMISE', status: 'REJECTED', name, error})
 
-let shopGQL = getGQL('http://marketplace.asmer.fs.a-level.com.ua/graphql')
+let shopGQL = getGQL('/graphql')
 
 export const actionPromise = (name, promise) => 
     async dispatch => {
@@ -55,51 +55,43 @@ export const actionFullLogin = (login, password) => {
           dispatch(actionAuthLogin(result))
   }
 }
-
+//dsfsdfsd
 const actionRegister = (login,password) =>
     actionPromise('reg',shopGQL(`mutation reg($login: String!, $password: String!){
         createUser(login:$login, password: $password){
         _id login
     }
-}`,{query: {login,password}}))
+}`,{login,password}))
 
 export const actionFullRegister = (login,password) => 
   async dispatch => {
     let payload = await dispatch(actionRegister(login,password))
-    if(payload.data.UserUpsert != null){
+    if(payload.data.createUser != null){
       await dispatch(actionFullLogin(login,password))
+    }
+    else {
+      console.log("exiciting user")
     }
   }
 
-// export const actionReg = (login, password) =>
-//     async dispatch => {
-//         let loginData = await dispatch(actionPromise('reg', shopGQL(
-//             `mutation reg($login: String!, $password: String!){
-//                 createUser(login:$login, password: $password){
-//                   _id
-//                 }
-//               }`, { login, password })))
-//         if (loginData && loginData.data && (loginData.data.createUser != null)) {
-//             dispatch(actionLogin(login, password))
-//             console.log(loginData.data)
-//         }
-//     }
-
 export const actionTypeAd = () =>
-    actionPromise('type Ad', shopGQL(`
+    actionPromise('AdFind', shopGQL(`
             query Ad($query:String){
-              type AdFind(query:$query){
-                _id 
-                owner
-                images
-                comments
-                createdAt
+              AdFind(query:$query){
+                _id  
                 title
                 description
-                tags
-                address
                 price
+                images {
+                  url
+                }
               }
             }
-        `, {query: JSON.stringify([{parent:null}])}))
+        `, {query: JSON.stringify([{}])}))
 
+        // tags
+        // address
+        // images
+        // comments
+        // createdAt
+        //img

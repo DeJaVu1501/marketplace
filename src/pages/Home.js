@@ -1,14 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect}   from 'react-redux';
-import {useState} from "react";
-import {actionTypeAd} from '../actions'
+import {AdFeed} from "../Components/CAdFeed";
+import { actionTypeAd } from "../actions";
 
 
-export const Home = (_id,owner) => {
-    return (
-        <h1>home</h1>
-    )
+export const Home = ({getData,data2}) => {
+    useEffect(()=>getData(),[])
+    if(data2){
+        return (
+            <div>
+                {data2.map(ad => <AdFeed key={ad._id} _id = {ad. _id} price = {ad.price} title = {ad.title} description={ad.description} owner={ad.owner} images={ad.images}/>)}
+            </div>
+        )
+    }
 }
 
-const TypeAd = connect(null,{_id: actionTypeAd})(Home)
+const TypeAd = connect(state => ({data2: state.promiseReducer.AdFind?.payload?.data?.AdFind || []}),{getData: actionTypeAd})(Home)
 export default TypeAd
