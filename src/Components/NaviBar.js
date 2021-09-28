@@ -3,7 +3,7 @@ import React from "react";
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import {Link} from "react-router-dom";
 
-export default function Navibar(){
+export default function Navibar({}){
     return(
     <>
         <Navbar className='Navbar'>

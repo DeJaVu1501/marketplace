@@ -53,9 +53,10 @@ export const actionFullLogin = (login, password) => {
       let result = await dispatch(actionLogin(login, password))
       if(result)
           dispatch(actionAuthLogin(result))
+          window.location.reload();
   }
 }
-//dsfsdfsd
+
 const actionRegister = (login,password) =>
     actionPromise('reg',shopGQL(`mutation reg($login: String!, $password: String!){
         createUser(login:$login, password: $password){
@@ -63,11 +64,23 @@ const actionRegister = (login,password) =>
     }
 }`,{login,password}))
 
+
+const actionAvaAdd = (ava,user) =>
+actionPromise('ava',shopGQL(`mutation setAvatar{
+  UserUpsert(user:{_id: "myid", avatar: {_id: "image id from fetch"}}){
+      _id, avatar{
+          _id
+      }
+  }
+}`,{ava,user}))
+
+
 export const actionFullRegister = (login,password) => 
   async dispatch => {
     let payload = await dispatch(actionRegister(login,password))
     if(payload.data.createUser != null){
       await dispatch(actionFullLogin(login,password))
+      // await dispatch(actionAvaAdd(avatar,_id))
     }
     else {
       console.log("exiciting user")
@@ -89,9 +102,43 @@ export const actionTypeAd = () =>
             }
         `, {query: JSON.stringify([{}])}))
 
-        // tags
-        // address
-        // images
-        // comments
-        // createdAt
-        //img
+export const actionTypeAdOne = (id) => 
+          actionPromise('AdFindOne',shopGQL(`
+            query Ad($query:String){
+              AdFindOne(query:$query){
+                _id
+                title
+                description
+                price
+                images {
+                  url
+                }
+              }
+            }`,{query: JSON.stringify([{_id:id}])}))
+
+// export const actionUploadFile = (file) =>{  
+// let fd = new FormData
+// fd.append('photo', file)
+
+// return actionPromise('forma', fetch('/upload', {
+//   method: "POST",
+//   headers: localStorage.authToken ? {Authorization: 'Bearer ' + localStorage.authToken} : {},
+//   body: fd
+// }).then(res => res.json()))
+// }
+
+export const actionUpLoadAva = (ava,user) =>
+    async dispatch => {
+        const formData = new FormData();
+        formData.set("avatar", ava);
+        let sendData = await dispatch(actionPromise('send', fetch(`/upload`,
+            {
+                method: 'POST',
+                headers: localStorage.authToken ? { Authorization: 'Bearer ' + localStorage.authToken } : {},
+                body: formData
+            })))
+        let responce = await dispatch(actionPromise('sendData', sendData.json()))
+        console.log(user)
+        let AddAva = dispatch(actionFullRegister(responce._id,user))
+        console.log(AddAva)
+    }

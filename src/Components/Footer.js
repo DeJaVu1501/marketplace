@@ -9,8 +9,6 @@ const Footer = () => <footer className="page-footer  fixed-bottom">
                 <p>будет</p>
             </div>
 
-            {/* <hr className="clearfix w-100 d-md-none pb-0"/> */}
-
             <div className="col-md-6 mb-md-0 mb-3">
                 <ul className="list-unstyled">
                     <li><Link to="/instruction">Инструкция</Link></li>

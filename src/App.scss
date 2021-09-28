@@ -1,4 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
 
 .Navbar {
     background: #002f34;
@@ -82,10 +87,27 @@
 
 .ad {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    width: 30%;
-    margin: 0 auto;
+    width: 60%;
+    margin: 10px auto;
+    border : 1px solid white;
+    background-color: whitesmoke;
+    padding: 10px;
+    img {
+        max-width: 250px;
+        padding-left: 0px;
+    }
+
+    a {
+        text-decoration: none;
+        color:black;
+        font-size: 25px;
+    }
+    a:hover {
+        background-color: #002f34;
+        color: white;
+    }
 }
 
 
