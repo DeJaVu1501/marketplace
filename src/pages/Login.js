@@ -58,5 +58,6 @@ const loginCallback = () => {
   )
 }
 
+
 const ConnectLog = connect(state => ({loggedIn: state.authReducer.login}), {onLogin: actionFullLogin})(LoginForm)
 export default ConnectLog

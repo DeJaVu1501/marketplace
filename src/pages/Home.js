@@ -8,10 +8,10 @@ import {useHistory} from 'react-router-dom';
 
 export const Home = ({getData,data2}) => {
     useEffect(()=>getData(),[])
-    let history = useHistory()
-    if(!localStorage.authToken) {
-        history.push("/login") 
-    }
+    // let history = useHistory()
+    // if(!localStorage.authToken) {
+    //     history.push("/login") 
+    // }
     if(data2){
         return (
             <div>

@@ -2,8 +2,14 @@ import logo from '../logoOlx.png';
 import React from "react";
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import {Link} from "react-router-dom";
+import {actionAuthLogout} from '../actions/index'
+import { connect } from 'react-redux';
+import { useState } from 'react';
+// import Button from '@restart/ui/esm/Button';
+import CButtonLogout from './Logout';
 
-export default function Navibar({}){
+export function Navibar({isLogin}){
+  // let [isLogout, setIsLogout] = useState(false)
     return(
     <>
         <Navbar className='Navbar'>
@@ -12,15 +18,20 @@ export default function Navibar({}){
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav>
-                  <Nav.Link><Link to="/login">Войти</Link></Nav.Link>
-                  <Nav.Link><Link to="/sign">Зарегистрироваться</Link></Nav.Link>
-                  {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                  </NavDropdown> */}
+                  {isLogin ? (
+                    <>
+                      <CButtonLogout />
+                    </>
+                  ):(
+                      <>
+                        <Nav.Link><Link to="/login">Войти</Link></Nav.Link>
+                        <Nav.Link><Link to="/sign">Зарегистрироваться</Link></Nav.Link>
+                      </> 
+                    )}
+                  {/* <Nav.Link><Link to="/login">Войти</Link></Nav.Link>
+                  <Nav.Link><Link to="/sign">Зарегистрироваться</Link></Nav.Link> */}
+
+                  {/* {isLogout && <Logout onClick={() =>{onLogout();setIsLogout(false)}} />} */}
                 </Nav>
               </Navbar.Collapse>
             </Container>
@@ -28,3 +39,5 @@ export default function Navibar({}){
     </>
     )
   }
+const ConnectNav = connect(state => ({isLogin: state.authReducer.payload}),null)(Navibar)
+export default ConnectNav

@@ -9,8 +9,8 @@ export const Ad = ({getData3,data3, match:{params:{id}}}) => {
 
     if(data3){
         return (
-            <div>
-                {(ad) =><AdOne key={ad._id} price = {ad.price} title = {ad.title} description={ad.description}  images={ad.images} /> }
+            <div className="adone">
+                <AdOne key={data3._id} price = {data3.price} title = {data3.title} description={data3.description}  images={data3.images} />
             </div>
         )
     }

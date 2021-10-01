@@ -75,7 +75,7 @@ const Sign = ({onSign,loggedIn}) => {
                 {show && (!login || password.length<3 || password2.length<3) && <MinPass/>}
                 {show2 && (!password.match(/\d/)) && <NumberCheckPass />}
                 {show3 && (password !== password2) && <ConfirmPass />}
-                {loggedIn && <Redirect push to='/login'/>}
+                {loggedIn && <Redirect push to='/'/>}
       </div>
 
     )

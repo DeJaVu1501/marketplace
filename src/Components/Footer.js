@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const Footer = () => <footer className="page-footer  fixed-bottom">
+const Footer = () => <footer className="page-footer fixed-bottom">
     <div className="container text-center ">
         <div className="row">
             <div className="col-md-6 mt-md-0 mt-3">

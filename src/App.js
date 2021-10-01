@@ -3,9 +3,11 @@ import './App.scss';
 import {Provider, connect}   from 'react-redux';
 import thunk from 'redux-thunk';
 import {createStore, combineReducers, applyMiddleware} from 'redux';
-import Navibar from './Components/NaviBar';
+import {Navibar} from './Components/NaviBar';
 import Footer from './Components/Footer';
 import { createBrowserHistory } from "history";
+import { Redirect } from 'react-router-dom';
+import { actionAuthLogout } from './actions';
 
 import store from './reducers';
 import ConnectLog from './pages/Login';
@@ -25,20 +27,21 @@ import {Login} from "./pages/Login";
 import {Instruction} from "./pages/Instriction";
 import {Advertisment} from "./pages/Advertisment";
 import {useDropzone} from 'react-dropzone'
+import RoleRoute from './Components/PrivateRoute';
+import ConnectNav from './Components/NaviBar';
 
-
-// const ConnectLogout = connect(state => ({children: 'logout'}),{onClick: actionAuthLogout})('button')
 
 function App() {
   return (
     <>
       <Provider store={store}>
       <Router history = {createBrowserHistory()}>
-          <Navibar />
+          <ConnectNav />
           <Switch>
-            <Route exact path='/' component={TypeAd}/>
-            <Route exact path='/:id' component={TypeAdOne} />
+            <RoleRoute exact path='/' roles ={["user"]} component = {TypeAd} />
+            <RoleRoute path='/home/:id' roles={['user']}component={TypeAdOne} />
             <Route path='/login' component={ConnectLog}/>
+            {/* <RoleRoute roles={['unknown']} path='/login' component={ConnectLog}/> */}
             <Route path='/sign' component={ConnectSign}/>
             <Route path='/instruction' component={Instruction} />
             <Route path='/advertisment' component={Advertisment} />
@@ -49,5 +52,6 @@ function App() {
     </>
   );
 }
+
 
 export default App;
