@@ -6,19 +6,12 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {Navibar} from './Components/NaviBar';
 import Footer from './Components/Footer';
 import { createBrowserHistory } from "history";
-import { Redirect } from 'react-router-dom';
 import { actionAuthLogout } from './actions';
 
 import store from './reducers';
 import ConnectLog from './pages/Login';
 
-import {
-  Router,
-  Switch,
-  Route, 
-  Link,
-  useHistory
-} from "react-router-dom";
+import { Router,Switch, Route, Link, useHistory } from "react-router-dom";
 
 import TypeAd, {Home} from "./pages/Home";
 import TypeAdOne from './pages/AdOne';
@@ -29,7 +22,9 @@ import {Advertisment} from "./pages/Advertisment";
 import {useDropzone} from 'react-dropzone'
 import RoleRoute from './Components/PrivateRoute';
 import ConnectNav from './Components/NaviBar';
-
+import CProfile from './Components/Profile';
+import CPromiseComponent from './Components/PromiseComponent';
+import CPost from './pages/PostAd';
 
 function App() {
   return (
@@ -38,13 +33,14 @@ function App() {
       <Router history = {createBrowserHistory()}>
           <ConnectNav />
           <Switch>
-            <RoleRoute exact path='/' roles ={["user"]} component = {TypeAd} />
-            <RoleRoute path='/home/:id' roles={['user']}component={TypeAdOne} />
-            <Route path='/login' component={ConnectLog}/>
-            {/* <RoleRoute roles={['unknown']} path='/login' component={ConnectLog}/> */}
-            <Route path='/sign' component={ConnectSign}/>
-            <Route path='/instruction' component={Instruction} />
-            <Route path='/advertisment' component={Advertisment} />
+            <RoleRoute exact path='/' roles ={['user']} component = {TypeAd}  />
+            <RoleRoute path='/home/:id' roles={['user']} component={TypeAdOne} />
+            <RoleRoute path='/login' roles={['unknown']} component={ConnectLog}/>
+            <RoleRoute path='/sign' roles={['unknown']} component={ConnectSign}/>
+            <RoleRoute path='/profile' roles={['user']} component={CProfile} />
+            <RoleRoute path='/post-ad' roles={['user']} component={CPost} />
+            <RoleRoute path='/instruction' roles={['unknown']} component={Instruction} />
+            <RoleRoute path='/advertisment' roles={['unknown']} component={Advertisment} />
           </Switch>
           <Footer />
       </Router>

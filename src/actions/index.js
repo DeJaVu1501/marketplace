@@ -2,7 +2,6 @@ const getGQL = url =>
     (query, variables={}) => fetch(url, {
         method: 'POST',
         headers: {
-            //Accept: "application/json",
             "Content-Type": "application/json",
             ...(localStorage.authToken ? {Authorization: "Bearer " + localStorage.authToken } : {})
         },
@@ -65,14 +64,14 @@ const actionRegister = (login,password) =>
 }`,{login,password}))
 
 
-const actionAvaAdd = (ava,user) =>
-actionPromise('ava',shopGQL(`mutation setAvatar{
-  UserUpsert(user:{_id: "myid", avatar: {_id: "image id from fetch"}}){
-      _id, avatar{
-          _id
-      }
-  }
-}`,{ava,user}))
+// const actionAvaAdd = (ava,user) =>
+// actionPromise('ava',shopGQL(`mutation setAvatar{
+//   UserUpsert(user:{_id: "myid", avatar: {_id: "image id from fetch"}}){
+//       _id, avatar{
+//           _id
+//       }
+//   }
+// }`,{ava,user}))
 
 
 export const actionFullRegister = (login,password) => 
@@ -87,7 +86,7 @@ export const actionFullRegister = (login,password) =>
     }
   }
 
-export const actionTypeAd = () =>
+export const actionTypeAd = (_id,title) =>
     actionPromise('AdFind', shopGQL(`
             query Ad($query:String){
               AdFind(query:$query){
@@ -98,9 +97,12 @@ export const actionTypeAd = () =>
                 images {
                   url
                 }
+                comments {
+                  _id text owner { login} 
+                }
               }
             }
-        `, {query: JSON.stringify([{}])}))
+        `, {query: JSON.stringify([{field: title},{sort: [{_id: -1}]}])}))
 
 export const actionTypeAdOne = (id) => 
           actionPromise('AdFindOne',shopGQL(`
@@ -115,6 +117,20 @@ export const actionTypeAdOne = (id) =>
                 }
               }
             }`,{query: JSON.stringify([{_id:id}])}))
+
+export const actionPostAd = (title,description,price) =>
+            actionPromise('PostAd',shopGQL(`
+            mutation Post($ad: AdInput){
+              AdUpsert(ad: $ad) {
+                  _id
+                  title
+                  description
+                  price
+                  images {
+                    url
+                  }
+                }
+              }`,{ad: {title,description,price}}))
 
 // export const actionUploadFile = (file) =>{  
 // let fd = new FormData

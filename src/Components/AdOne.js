@@ -1,4 +1,5 @@
 import React from "react"; 
+import { Container } from "react-bootstrap";
 
 export const AdOne=({_id, price, title,description,images}) => {
     return (
@@ -8,6 +9,5 @@ export const AdOne=({_id, price, title,description,images}) => {
             <p>{description}</p>
             <p>{`${price ? price : "0"} грн.`}</p>
         </div>
-        
     )
 }

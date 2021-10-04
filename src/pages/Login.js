@@ -43,18 +43,21 @@ const loginCallback = () => {
     <div className="divLogin">
         <h4>Войти</h4>
         <div className="login-container">
-            <label>Nickname</label>
-            <input value={login} onChange={e => setLogin(e.target.value)} placeholder="Nickname"></input>
+            <label>Логин</label>
+            <input value={login} onChange={e => setLogin(e.target.value)} placeholder="Логин"></input>
         </div>
         <div className='pwd-container'>
             <label>Ваш текущий пароль от olx</label>
             <input value={password} type={open ? "text" : "password"} onChange={e => setPassword(e.target.value)} placeholder="Пароль"  />
             <img src={open ? hidePwdImg : showPwdImg} onClick={() => setOpen(!open)}/>
         </div>
+        <div className='login-container'>
             <Link to='sign'>Зарегистрироваться</Link>
-            <Button name='login' isValid={isLoginValid()} callback={loginCallback} />  
+            <Button name='Войти' isValid={isLoginValid()} callback={loginCallback} /> 
+        </div> 
             {show && (!login || !password) && <LoginError />}
     </div>
+    
   )
 }
 

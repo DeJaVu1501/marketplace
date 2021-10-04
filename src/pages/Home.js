@@ -5,13 +5,11 @@ import {AdOne} from "../Components/AdOne";
 import { actionTypeAd ,actionTypeAdOne} from "../actions";
 import { Redirect } from "react-router";
 import {useHistory} from 'react-router-dom';
-
+import Loader from "../Components/PreLoader";
+import { CAdfeed } from "../Components/CAdFeed";
 export const Home = ({getData,data2}) => {
     useEffect(()=>getData(),[])
-    // let history = useHistory()
-    // if(!localStorage.authToken) {
-    //     history.push("/login") 
-    // }
+   
     if(data2){
         return (
             <div>

@@ -47,14 +47,12 @@ const Sign = ({onSign,loggedIn}) => {
         }
     }
 
-   loggedIn = localStorage.authToken
-
     return (
       <div className="divSign">
           <h4>Регистрация</h4>
           <div className="login-container">
               <label>Придумайте логин</label>
-              <input value={login} onChange={e => setLogin(e.target.value)}  placeholder="Nickname"></input>
+              <input value={login} onChange={e => setLogin(e.target.value)}  placeholder="Логин"></input>
           </div>
           <div className='pwd-container1'>
               <label>Придумайте пароль</label>
@@ -68,7 +66,7 @@ const Sign = ({onSign,loggedIn}) => {
           </div>
           <MyDropzone />
           <Button
-                name='sign'
+                name='Зарегистрироваться'
                 isValid={isRegistrationValid()}
                 callback={registrationCallback}
             />
@@ -81,5 +79,5 @@ const Sign = ({onSign,loggedIn}) => {
     )
 }
 
-const ConnectSign = connect(state=> ({loggedIn:state.authReducer.login}),{onSign: actionFullRegister})(Sign)
+const ConnectSign = connect(state=> ({loggedIn:state.authReducer.payload}),{onSign: actionFullRegister})(Sign)
 export default ConnectSign

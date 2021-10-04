@@ -4,6 +4,19 @@ html,body {
     max-width: 100%;
     overflow-x: hidden;
     height: 100%;
+
+    button {
+        background: #002f34;
+        color: white;
+        font-weight: 500;
+        border: 2px solid #002f34;
+        border-radius: 5px;
+        padding: 10px 30px;
+    }
+    button:hover {
+        color: #002f34;
+        background: white;
+    }
 }
 
 .Navbar {
@@ -38,10 +51,14 @@ html,body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    margin-top: 20px;
+    input {
+        width: 200px;
+    }
     .login-container {
         display: flex;
         flex-direction: column;
+        position: relative;
     }
     .pwd-container {
         display: flex;
@@ -90,15 +107,17 @@ html,body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 60%;
     margin: 10px auto;
     border : 1px solid white;
+    border-radius: 15px;
     background-color: whitesmoke;
     padding: 10px;
     overflow-x: hidden;
     img {
         max-width: 200px;
         min-width: 200px;
+        max-height: 300px;
+        min-height: 150px;
         padding-left: 0px;
         border: 0;
     }
@@ -121,6 +140,52 @@ html,body {
     align-items: center;
 }
 
+.post {
+    margin-top: 25px;
+    padding: 25px 15px;
+    background-color: whitesmoke;
+    border-radius: 15px;
+}
+
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #cef;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #cef transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+.foter__indent {
+    min-height: 150px;
+}
 
 footer {
     background: #002f34;

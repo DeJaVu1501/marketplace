@@ -9,7 +9,6 @@ import { useState } from 'react';
 import CButtonLogout from './Logout';
 
 export function Navibar({isLogin}){
-  // let [isLogout, setIsLogout] = useState(false)
     return(
     <>
         <Navbar className='Navbar'>
@@ -19,8 +18,10 @@ export function Navibar({isLogin}){
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav>
                   {isLogin ? (
-                    <>
-                      <CButtonLogout />
+                    <>  
+                      <Nav.Link><Link to='/post-ad'>Добавить товар</Link></Nav.Link>
+                      <Nav.Link><Link to='/profile'>Профиль</Link></Nav.Link>
+                      <Nav.Link><CButtonLogout /></Nav.Link>
                     </>
                   ):(
                       <>
@@ -28,10 +29,6 @@ export function Navibar({isLogin}){
                         <Nav.Link><Link to="/sign">Зарегистрироваться</Link></Nav.Link>
                       </> 
                     )}
-                  {/* <Nav.Link><Link to="/login">Войти</Link></Nav.Link>
-                  <Nav.Link><Link to="/sign">Зарегистрироваться</Link></Nav.Link> */}
-
-                  {/* {isLogout && <Logout onClick={() =>{onLogout();setIsLogout(false)}} />} */}
                 </Nav>
               </Navbar.Collapse>
             </Container>

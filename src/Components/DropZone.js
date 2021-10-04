@@ -21,3 +21,5 @@ export function MyDropzone({getData,onSend,todo}) {
       </section>
     );
   }
+
+connect()(MyDropzone)
