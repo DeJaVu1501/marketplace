@@ -98,7 +98,7 @@ export const actionTypeAd = (_id,title) =>
                   url
                 }
                 comments {
-                  _id text owner { login} 
+                  _id text owner {login} answerTo { owner { login}}
                 }
               }
             }

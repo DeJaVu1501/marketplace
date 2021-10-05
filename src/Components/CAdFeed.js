@@ -20,10 +20,11 @@ export const AdFeed=({_id, price, owner,title,description,images,comments}) => {
                 <p>{`${price ? price : "0"} грн.`}</p>
             </div> 
             <div>
-                <p>{comments || null}</p>
+                <p>{`Коментарии : ${comments ? comments[0]?.text : 'отсутвуют'}`}</p>
+                <p>{`От : ${comments ? comments[0].owner.login : '-'}`}</p>
             </div>   
         </div>
         </Container> 
     )
 }
-export const CAdfeed = connect(state=>({comments: state.promiseReducer.AdFind?.payload?.data?.AdFind.comments[0]?.owner}))(AdFeed)
+// export const CAdfeed = connect(state=>({comments: state.promiseReducer.AdFind?.payload?.data?.AdFind.comments[0]?.owner}))(AdFeed)
