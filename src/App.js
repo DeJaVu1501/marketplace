@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.scss';
 import {Provider, connect}   from 'react-redux';
 import thunk from 'redux-thunk';
@@ -19,11 +19,9 @@ import ConnectSign from './pages/Sign';
 import {Login} from "./pages/Login";
 import {Instruction} from "./pages/Instriction";
 import {Advertisment} from "./pages/Advertisment";
-import {useDropzone} from 'react-dropzone'
 import RoleRoute from './Components/PrivateRoute';
 import ConnectNav from './Components/NaviBar';
 import CProfile from './Components/Profile';
-import CPromiseComponent from './Components/PromiseComponent';
 import CPost from './pages/PostAd';
 
 function App() {

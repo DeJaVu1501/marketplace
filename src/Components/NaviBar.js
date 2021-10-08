@@ -2,10 +2,7 @@ import logo from '../logoOlx.png';
 import React from "react";
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import {Link} from "react-router-dom";
-import {actionAuthLogout} from '../actions/index'
 import { connect } from 'react-redux';
-import { useState } from 'react';
-// import Button from '@restart/ui/esm/Button';
 import CButtonLogout from './Logout';
 
 export function Navibar({isLogin}){

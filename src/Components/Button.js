@@ -5,7 +5,6 @@ const Button = (props) => {
         <button
             onClick={(e) => {
                props.callback(e)
-        
             }}
             className={props.disabled ? 'button-active': 'button-disabled'} 
             >

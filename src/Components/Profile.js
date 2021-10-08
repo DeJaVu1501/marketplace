@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const Profile = ({login}) => {
+const Profile = ({login,posts}) => {
     return (
         <div>
             <p>{login}</p>

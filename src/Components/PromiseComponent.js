@@ -3,25 +3,18 @@ import { connect } from "react-redux";
 import TypeAd from "../pages/Home";
 import Loader from "./PreLoader";
 
-const PromiseComponent = ({component,promiseName,pending,resolved}) => {
-    // const PromiseWrapper = ({}) => {
-        // const OriginalComp = component
-        // let [error,setError] = useState()
-        // if(promiseName ==='PENDING') {
-        //     return <Loader />
-        // }
-        // if(promiseName === 'RESOLVED') {
-        //     return <OriginalComp />
-        // }
+const PromiseComponent = ({promiseStatus,promiseName,children}) => {
+    if(promiseStatus[promiseName] && promiseStatus[promiseName].status === "RESOLVED") {
+        return children
+    }
+    else {
         return (
-           <div>
-               {pending && <Loader />}
-               {resolved && <TypeAd /> }
-           </div>
+        <div className='loader'>
+            <Loader />
+        </div>
         )
-    // }
-    // return <PromiseWrapper component={OriginalComp} />
+    }
 }
 
-const CPromiseComponent = connect(state => ({pending: state.promiseReducer?.AdFind?.status.includes('PENDING')}, {resolved: state.promiseReducer?.AdFind?.status.includes('RESOLVED') }))(PromiseComponent)
+const CPromiseComponent = connect(state => ({promiseStatus: state.promiseReducer}))(PromiseComponent)
 export default CPromiseComponent

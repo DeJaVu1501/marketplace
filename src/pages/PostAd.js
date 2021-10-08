@@ -20,7 +20,7 @@ const Post = ({onPost}) => {
             </div>
             <div className='d-flex flex-column align-items-start post'>
                 <label>Введите цену</label>
-                <input type={"number"} value={price} onChange={e => e.target.value>0 ? setPrice(+e.target.value) : ""} placeholder='Цена' ></input>
+                <input type={"number"} value={price} onChange={e => e.target.value>=0 ? setPrice(+e.target.value) : ""} placeholder='Цена' ></input>
             </div>
             <div className="d-flex flex-column align-items-end post">
                 <button onClick={()=> onPost(title,description,price)}>Опубликовать</button>

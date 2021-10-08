@@ -52,7 +52,7 @@ export const actionFullLogin = (login, password) => {
       let result = await dispatch(actionLogin(login, password))
       if(result)
           dispatch(actionAuthLogin(result))
-          window.location.reload();
+          // window.location.reload();
   }
 }
 
