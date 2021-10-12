@@ -132,29 +132,46 @@ export const actionPostAd = (title,description,price) =>
                 }
               }`,{ad: {title,description,price}}))
 
-// export const actionUploadFile = (file) =>{  
-// let fd = new FormData
-// fd.append('photo', file)
+export const actionMyPosts = () =>
+              actionPromise('MyPosts',shopGQL(``))
 
-// return actionPromise('forma', fetch('/upload', {
-//   method: "POST",
-//   headers: localStorage.authToken ? {Authorization: 'Bearer ' + localStorage.authToken} : {},
-//   body: fd
-// }).then(res => res.json()))
-// }
+export const actionCommentAdd = () =>
+              actionPromise('CommentAdd',shopGQL(`
+              mutation Comment($comment : CommentInput){
+                CommentUpsert(comment: $comment) {
+                  _id
+                  ad
+                  text
+                }
+              }`,{comment:{text,answerTo,ad:{_id}}}))
 
-export const actionUpLoadAva = (ava,user) =>
-    async dispatch => {
-        const formData = new FormData();
-        formData.set("avatar", ava);
-        let sendData = await dispatch(actionPromise('send', fetch(`/upload`,
-            {
-                method: 'POST',
-                headers: localStorage.authToken ? { Authorization: 'Bearer ' + localStorage.authToken } : {},
-                body: formData
-            })))
-        let responce = await dispatch(actionPromise('sendData', sendData.json()))
-        console.log(user)
-        let AddAva = dispatch(actionFullRegister(responce._id,user))
-        console.log(AddAva)
-    }
+export const actionUploadFile = (file) => {
+  let fd = new FormData
+  fd.append('photo', file)
+  return actionPromise('photo',fetch('/upload', {
+    method: "POST",
+    headers: localStorage.authToken ? {Authorization: 'Bearer ' + localStorage.authToken} : {},
+    body: fd
+  }).then(res => res.json()))
+};
+
+const actionAvaAdd = (avaId) => 
+async (dispatch,getState) => {
+  let userId = getState().authReducer.payload.sub.id
+  await dispatch (actionPromise('ava',shopGQL(`mutation setAvatar($userId: String, $avaId: ID){
+  UserUpsert(user:{_id: $userId, avatar: {_id: $avaId}}){
+      _id, avatar{
+          _id
+      }
+  }
+}`,{avaId,userId})))
+}
+
+export const actionAvaChange = (file) => 
+  async (dispatch) => {
+   let res =  await dispatch(actionUploadFile(file))
+   if(res) {
+     await dispatch(actionAvaAdd(res._id))
+   }
+  }
+  

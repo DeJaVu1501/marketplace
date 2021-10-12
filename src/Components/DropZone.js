@@ -1,25 +1,25 @@
-import React, { useState, useEffect, useRef, useCallback, MyContext} from "react";
+import React, {useRef} from "react";
+import { actionAvaChange } from "../actions";
 
 import { connect } from "react-redux";
 import {useDropzone} from 'react-dropzone'
 
-export function MyDropzone({getData,onSend,todo}) {
-    console.log(todo)
-    const {acceptedFiles, getRootProps, getInputProps} = useDropzone({onDrop: files => files.map(x=> onSend(x,todo))});
-    const files = acceptedFiles.map(file => <li key={file.path}>{file.path}</li>);
-  
+export function MyDropzone({onSend}) {
+  const loading = useRef()  
+    const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
+    // const files = acceptedFiles.map(file => <li key={file.path}>{file.path}</li>);
+    if(acceptedFiles.length > 0 && !loading.current) {
+      onSend(acceptedFiles[0])
+      loading.current = true
+    }
     return (
-      <section className="container">
+      
         <div {...getRootProps({className: 'dropzone'})}>
           <input {...getInputProps() }/>
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        </div>
-        <aside>
-          <h4>Files</h4>
-          <ul> {files} </ul>
-        </aside>
-      </section>
+          <p>Нажмите для смены аватарки</p>
+        </div>      
     );
   }
 
-connect()(MyDropzone)
+const CDrop = connect(null,{onSend:actionAvaChange})(MyDropzone)
+export default CDrop
