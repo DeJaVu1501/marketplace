@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { Container } from "react-bootstrap";
 import nofoto from '../images/placeholder.png'
 
-export const AdFeed=({_id, price,title,description,images,comments,createdAt}) => {
+export const MyFeed=({_id, price, owner,title,description,images,comments,createdAt}) => {
     function timeConverter(t){
         let a = new Date(+t);
         let months = ['Января','Февраля','Марта','Апреля','Мая','Июня','Июля','Августа','Сентября','Октября','Ноября','Декабря'];
@@ -27,8 +27,8 @@ export const AdFeed=({_id, price,title,description,images,comments,createdAt}) =
                     <p>{description}</p>
                 </div>
                 <div className="col price">   
-                    <p>{`Цена: ${price ? price : "0"} грн.`}</p>
-                    <p>{`Добавлено: ${timeConverter(createdAt)}`}</p>
+                    <p>{owner}</p>
+                    <p>{`${price ? price : "0"} грн.`}</p>
                 </div> 
                 <div>
                     <p>{`Коментарии : ${comments ? comments[0]?.text : 'отсутвуют'}`}</p>
@@ -38,4 +38,3 @@ export const AdFeed=({_id, price,title,description,images,comments,createdAt}) =
         </Container> 
     )
 }
-

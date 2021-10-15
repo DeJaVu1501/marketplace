@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import TypeAd from "../pages/Home";
 import Loader from "./PreLoader";
 
 const PromiseComponent = ({promiseStatus,promiseName,children}) => {

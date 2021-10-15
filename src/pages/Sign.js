@@ -59,12 +59,11 @@ const Sign = ({onSign,loggedIn}) => {
               <input value={password} type={open ? "text" : "password"} onChange={e => setPassword(e.target.value)}  placeholder="Пароль"  />
               <img src={open ? hidePwdImg : showPwdImg} onClick={() => setOpen(!open)}/>
           </div>
-          <div className='pwd-container2'>
+          <div className='pwd-container2 mb-3'>
               <label>Повторите пароль</label>
               <input value={password2} type={open2 ? "text" : "password"} onChange={e => setPassword2(e.target.value)}  placeholder="Пароль"  />
               <img src={open2 ? hidePwdImg : showPwdImg} onClick={() => setOpen2(!open2)}/>
           </div>
-          <MyDropzone />
           <Button
                 name='Зарегистрироваться'
                 isValid={isRegistrationValid()}

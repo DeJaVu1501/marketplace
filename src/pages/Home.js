@@ -8,19 +8,18 @@ import {useHistory} from 'react-router-dom';
 import Loader from "../Components/PreLoader";
 import { CAdfeed } from "../Components/CAdFeed";
 import CPromiseComponent from "../Components/PromiseComponent";
-export const Home = ({getData,data2}) => {
+export const Home = ({getData,data}) => {
     useEffect(()=>getData(),[])
-   
-    if(data2){
+    if(data){
         return (
             <CPromiseComponent promiseName='AdFind'>
                 <div>
-                    {data2.map(ad => <AdFeed key={ad._id} _id = {ad. _id} price = {ad.price} title = {ad.title} description={ad.description} owner={ad.owner} images={ad.images} comments={ad.comments} />)}
+                    {data.map(ad => <AdFeed key={ad._id} _id = {ad. _id} price = {ad.price} title = {ad.title} description={ad.description} owner={ad.owner} images={ad.images} comments={ad.comments} createdAt={ad.createdAt} />)}
                 </div>
             </CPromiseComponent>
         )
     }
 }
 
-const TypeAd = connect(state => ({data2: state.promiseReducer.AdFind?.payload?.data?.AdFind || []}),{getData: actionTypeAd})(Home)
+const TypeAd = connect(state => ({data: state.promiseReducer.AdFind?.payload?.data?.AdFind || []}),{getData: actionTypeAd})(Home)
 export default TypeAd

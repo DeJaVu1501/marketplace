@@ -50,9 +50,13 @@ const actionLogin = (login, password) => actionPromise("login", log(login, passw
 export const actionFullLogin = (login, password) => {
   return async (dispatch) => {
       let result = await dispatch(actionLogin(login, password))
-      if(result)
+      if(result) {
           dispatch(actionAuthLogin(result))
-          // window.location.reload();
+          dispatch(actionUserInfo())
+      }
+      else {
+        console.log('undefined user')
+      }
   }
 }
 
@@ -63,23 +67,11 @@ const actionRegister = (login,password) =>
     }
 }`,{login,password}))
 
-
-// const actionAvaAdd = (ava,user) =>
-// actionPromise('ava',shopGQL(`mutation setAvatar{
-//   UserUpsert(user:{_id: "myid", avatar: {_id: "image id from fetch"}}){
-//       _id, avatar{
-//           _id
-//       }
-//   }
-// }`,{ava,user}))
-
-
 export const actionFullRegister = (login,password) => 
   async dispatch => {
     let payload = await dispatch(actionRegister(login,password))
     if(payload.data.createUser != null){
       await dispatch(actionFullLogin(login,password))
-      // await dispatch(actionAvaAdd(avatar,_id))
     }
     else {
       console.log("exiciting user")
@@ -100,6 +92,8 @@ export const actionTypeAd = (_id,title) =>
                 comments {
                   _id text owner {login} answerTo { owner { login}}
                 }
+                createdAt
+                owner {login}
               }
             }
         `, {query: JSON.stringify([{field: title},{sort: [{_id: -1}]}])}))
@@ -133,17 +127,34 @@ export const actionPostAd = (title,description,price) =>
               }`,{ad: {title,description,price}}))
 
 export const actionMyPosts = () =>
-              actionPromise('MyPosts',shopGQL(``))
-
-export const actionCommentAdd = () =>
-              actionPromise('CommentAdd',shopGQL(`
-              mutation Comment($comment : CommentInput){
-                CommentUpsert(comment: $comment) {
-                  _id
-                  ad
-                  text
-                }
-              }`,{comment:{text,answerTo,ad:{_id}}}))
+    async (dispatch,getState) => {
+      let userId = getState().authReducer.payload.sub.id
+      return await dispatch(actionPromise('MyPosts',shopGQL(`
+        query MyPosts($query: String){
+          AdFind(query: $query){
+            _id  
+            title
+            description
+            price
+            images {
+              url
+            }
+            comments {
+              _id text owner {login} answerTo { owner { login}}
+            }
+          }
+        }`,{query: JSON.stringify([{___owner: userId}])})))
+      }
+    
+// export const actionCommentAdd = () =>
+//               actionPromise('CommentAdd',shopGQL(`
+//               mutation Comment($comment : CommentInput){
+//                 CommentUpsert(comment: $comment) {
+//                   _id
+//                   ad
+//                   text
+//                 }
+//               }`,{comment:{text,answerTo,ad:{_id}}}))
 
 export const actionUploadFile = (file) => {
   let fd = new FormData
@@ -172,6 +183,18 @@ export const actionAvaChange = (file) =>
    let res =  await dispatch(actionUploadFile(file))
    if(res) {
      await dispatch(actionAvaAdd(res._id))
+     await dispatch(actionUserInfo())
    }
+  }
+
+export const actionUserInfo = () => 
+  async (dispatch,getState) => {
+    let userId = getState().authReducer.payload.sub.id
+    await dispatch(actionPromise('UserInfo',shopGQL(`
+      query UserInfo($query:String){
+        UserFindOne(query: $query){
+          _id login avatar {url}
+        }
+      }`,{query: JSON.stringify([{_id: userId}])})))
   }
   

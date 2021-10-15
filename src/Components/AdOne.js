@@ -1,13 +1,17 @@
 import React from "react"; 
-import { Container } from "react-bootstrap";
+import { Container,Carousel } from "react-bootstrap";
 
-export const AdOne=({_id, price, title,description,images}) => {
+export const AdOne=({price, title,description,images}) => {
     return (
-        <div>
-            <img src = {`http://marketplace.asmer.fs.a-level.com.ua/${images ? images[0]?.url : ''}`} />
-            <p>{title}</p>
-            <p>{description}</p>
-            <p>{`${price ? price : "0"} грн.`}</p>
-        </div>
+        <Container>
+            <div>
+                <Carousel>
+                    <img src = {`http://marketplace.asmer.fs.a-level.com.ua/${images ? images[0]?.url : ''}`} />
+                </Carousel>
+                <p>{title}</p>
+                <p>{description}</p>
+                <p>{`${price ? price : "0"} грн.`}</p>
+            </div>
+            </Container>
     )
 }

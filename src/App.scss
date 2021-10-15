@@ -59,6 +59,16 @@ html,body {
         display: flex;
         flex-direction: column;
         position: relative;
+
+        a {
+            text-decoration: none;
+            color:black;
+            font-size: 18px;
+        }
+        a:hover {
+            background-color: #002f34;
+            color: white;
+        }
     }
     .pwd-container {
         display: flex;
@@ -149,16 +159,16 @@ html,body {
 
 .profile {
     img {
-        width: 10%;
+        width: 20vh;
         height: 20vh;
-        border-radius: 100%;
+        border-radius: 50%;
     }
 }
 
 .loader {
     position: absolute;
     top: 40%;
-    left: 50%;
+    left: calc(50% - 80px);
     display: flex;
     justify-content: center;
     align-items: center;

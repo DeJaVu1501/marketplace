@@ -53,7 +53,7 @@ const loginCallback = () => {
                 <img src={open ? hidePwdImg : showPwdImg} onClick={() => setOpen(!open)}/>
             </div>
             <div className='login-container'>
-                <Link to='sign'>Зарегистрироваться</Link>
+                Не зарегистрированы? <Link to='sign' className='mb-3'>Создать аккаунт</Link>
                 <Button name='Войти' isValid={isLoginValid()} callback={loginCallback} /> 
             </div> 
                 {show && (!login || !password) && <LoginError />}

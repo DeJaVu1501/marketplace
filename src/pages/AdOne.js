@@ -5,19 +5,19 @@ import {actionTypeAdOne} from "../actions";
 import {useHistory} from 'react-router-dom';
 import CPromiseComponent from "../Components/PromiseComponent";
 
-export const Ad = ({getData3,data3, match:{params:{id}}}) => {
-    useEffect(()=>getData3(id),[id])
+export const Ad = ({getData,data, match:{params:{id}}}) => {
+    useEffect(()=>getData(id),[id])
 
-    if(data3){
+    if(data){
         return (
             <CPromiseComponent promiseName='AdFindOne'>
                 <div className="adone">
-                    <AdOne key={data3._id} price = {data3.price} title = {data3.title} description={data3.description}  images={data3.images} />
+                    <AdOne key={data._id} price = {data.price} title = {data.title} description={data.description}  images={data.images} />
                 </div>
             </CPromiseComponent>
         )
     }
 }
 
-const TypeAdOne = connect((state) => ({data3: state.promiseReducer.AdFindOne?.payload?.data?.AdFindOne || []}),{getData3: actionTypeAdOne})(Ad)
+const TypeAdOne = connect((state) => ({data: state.promiseReducer.AdFindOne?.payload?.data?.AdFindOne || []}),{getData: actionTypeAdOne})(Ad)
 export default TypeAdOne
