@@ -13,14 +13,16 @@ const Profile = ({ userData, postsData, getPosts }) => {
         <CPromiseComponent promiseName='UserInfo'>
             <Container>
                 <div className='d-flex flex-column justify-content-center align-items-center profile'>
-                    <p>{userData?.login}</p>
+                    <h4>{userData?.login}</h4>
                     <img src={userData?.avatar ? userData?.avatar.url : unknown} />
                     <CDrop />
                 </div>
                 <div>
                     <h4>Ваши объявления:</h4>
-                    {Object.keys(postsData).length == 0 && <h6>У вас еще нет обьявлений</h6>}
-                    {postsData?.map(ad => <MyFeed key={ad._id} _id = {ad. _id} price = {ad.price} title = {ad.title} description={ad.description} owner={ad.owner} images={ad.images} comments={ad.comments} />) }
+                    <CPromiseComponent promiseName='MyPosts'>
+                        {postsData && Object.keys(postsData).length == 0 && <h6>У вас еще нет обьявлений</h6>}
+                        {postsData?.map(ad => <MyFeed key={ad._id} _id = {ad. _id} price = {ad.price} title = {ad.title} description={ad.description} owner={ad.owner} images={ad.images} comments={ad.comments} />) }
+                    </CPromiseComponent>
                 </div>
             </Container>
         </CPromiseComponent>

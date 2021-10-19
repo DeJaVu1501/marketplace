@@ -13,7 +13,6 @@ export function MyDropzone({onSend}) {
       loading.current = true
     }
     return (
-      
         <div {...getRootProps({className: 'dropzone'})}>
           <input {...getInputProps() }/>
           <p>Нажмите для смены аватарки</p>

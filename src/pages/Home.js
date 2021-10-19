@@ -14,7 +14,7 @@ export const Home = ({getData,data}) => {
         return (
             <CPromiseComponent promiseName='AdFind'>
                 <div>
-                    {data.map(ad => <AdFeed key={ad._id} _id = {ad. _id} price = {ad.price} title = {ad.title} description={ad.description} owner={ad.owner} images={ad.images} comments={ad.comments} createdAt={ad.createdAt} />)}
+                    {data.map(ad => <AdFeed key={ad._id} _id = {ad. _id} price = {ad.price} title = {ad.title} description={ad.description} owner={ad.owner} images={ad.images} comments={ad.comments} />)}
                 </div>
             </CPromiseComponent>
         )

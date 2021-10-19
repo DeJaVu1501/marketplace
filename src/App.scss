@@ -1,4 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
+
 html,body {
     width: 100%;
     max-width: 100%;
@@ -45,6 +46,45 @@ html,body {
     }
     
 }
+
+
+.d1 {
+    background: #002f34;
+
+    form {
+        position: relative;
+        width: 300px;
+
+        input {
+            width: 100%;
+            height: 35px;
+            padding-left: 10px;
+            border: 2px solid #FFF;
+            border-radius: 5px;
+            outline: none;
+            background: #FFF;
+            color: #000;
+        }
+
+        .search {
+          position: absolute; 
+          top: 0;
+          right: 0;
+          width: 35px;
+          height: 35px;
+          border: none;
+          border-radius: 5px;
+          background: #fff;
+          cursor: pointer;
+          img{
+              margin-top: 5px;
+              margin-left: 8px;
+              width: 25px;
+          }
+        }
+    }
+}
+
 
 .divLogin {
     display: flex;
@@ -123,6 +163,7 @@ html,body {
     background-color: whitesmoke;
     padding: 10px;
     overflow-x: hidden;
+
     img {
         max-width: 200px;
         min-width: 200px;
@@ -137,18 +178,43 @@ html,body {
         color:black;
         font-size: 25px;
     }
+
     a:hover {
         background-color: #002f34;
         color: white;
     }
+
+    .href {
+        margin-top:15px;
+        font-size: 20px;
+    }
 }
 
-.adone {
+.AdPage {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    margin: 25px 0;
+    .carousel {
+        width: 50%;
+        margin-bottom: 20px;
+        img {
+            height: 45vh
+        }
+    }
+    .mainInfo {
+        margin-bottom: 20px;
+        padding: 10px;
+        width: 50%;
+        background-color: whitesmoke;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        border-radius: 15px;
+    }
 }
+
 
 .post {
     margin-top: 25px;
@@ -167,7 +233,7 @@ html,body {
 
 .loader {
     position: absolute;
-    top: 40%;
+    top: calc(50% - 80px);
     left: calc(50% - 80px);
     display: flex;
     justify-content: center;
@@ -207,6 +273,7 @@ html,body {
         }
     }
 }
+
 .foter__indent {
     min-height: 150px;
 }

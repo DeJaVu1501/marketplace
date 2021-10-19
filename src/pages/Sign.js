@@ -9,9 +9,9 @@ import NumberCheckPass from "../Components/RegErrors/numberCheckPass";
 import showPwdImg from '../images/3844476-eye-see-show-view-watch_110339.svg';
 import hidePwdImg from '../images/3844477-disable-eye-inactive-see-show-view-watch_110343.svg';
 import Button from "../Components/Button";
-import { MyDropzone } from "../Components/DropZone";
 
-const Sign = ({onSign,loggedIn}) => {
+
+const Sign = ({onSign,Reg}) => {
     const [login,setLogin] = useState('')
     const [password,setPassword] = useState('')
     const [password2,setPassword2] = useState('')
@@ -72,11 +72,12 @@ const Sign = ({onSign,loggedIn}) => {
                 {show && (!login || password.length<3 || password2.length<3) && <MinPass/>}
                 {show2 && (!password.match(/\d/)) && <NumberCheckPass />}
                 {show3 && (password !== password2) && <ConfirmPass />}
-                {loggedIn && <Redirect push to='/'/>}
+                {(Reg === null) && <p>Данный пользователь уже зарегистрирован</p>}
+                {Reg && <Redirect push to='/'/>}
       </div>
 
     )
 }
 
-const ConnectSign = connect(state=> ({loggedIn:state.authReducer.payload}),{onSign: actionFullRegister})(Sign)
+const ConnectSign = connect(state=> ({Reg:state.promiseReducer.reg?.payload?.data?.createUser}),{onSign: actionFullRegister})(Sign)
 export default ConnectSign

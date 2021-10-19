@@ -54,9 +54,6 @@ export const actionFullLogin = (login, password) => {
           dispatch(actionAuthLogin(result))
           dispatch(actionUserInfo())
       }
-      else {
-        console.log('undefined user')
-      }
   }
 }
 
@@ -109,10 +106,28 @@ export const actionTypeAdOne = (id) =>
                 images {
                   url
                 }
+                comments {
+                  _id text owner {login} answerTo { text owner{ login}}
+                }
+                createdAt
+                owner {login , createdAt}
               }
             }`,{query: JSON.stringify([{_id:id}])}))
 
-export const actionPostAd = (title,description,price) =>
+
+// export const actionComments = (ad) => 
+//             actionPromise('Comments',shopGQL(`
+//             query Comments($query: String){
+//               CommentFind(query: $query){
+//                 _id
+//                 text
+//                 owner {login}
+//                 ad {_id}
+//                 answerTo {text owner{login}}
+//               }
+//             }`,{query: JSON.stringify([{}])}))
+
+export const actionPostAd = (title,description,price,_id) =>
             actionPromise('PostAd',shopGQL(`
             mutation Post($ad: AdInput){
               AdUpsert(ad: $ad) {
@@ -124,7 +139,7 @@ export const actionPostAd = (title,description,price) =>
                     url
                   }
                 }
-              }`,{ad: {title,description,price}}))
+              }`,{ad: {title,description,price,_id}}))
 
 export const actionMyPosts = () =>
     async (dispatch,getState) => {
@@ -197,4 +212,56 @@ export const actionUserInfo = () =>
         }
       }`,{query: JSON.stringify([{_id: userId}])})))
   }
-  
+
+
+const regexp = (string) => `/${string.split([" "]).join(['|']).trim()}/`
+const toQuery = (queryString, fields = ["title", "description"]) => ({ $or: fields.map(string => ({ [string]: regexp(queryString) }))})
+export const actionSearch = (queryString) => 
+async (dispatch) =>
+  await dispatch(actionPromise('SearchAd',shopGQL(`
+  query AdFind($query: String){
+    AdFind(query: $query) {
+      _id
+      title
+      description
+      price
+      images {
+        url
+      }
+    }
+  }`,{query: JSON.stringify([toQuery(queryString),
+      {
+        sort: [{_id: -1}],
+        limit: [15]
+      }]
+    )}
+  )
+))
+
+// const toRegexp2 = queryString => `/${queryString.split([" "]).join(['|']).trim()}/`
+// const toQuery = (queryString, fields = ["id3.artist", "id3.title", "id3.album"]) => ({ $or: fields.map(x => ({ [x]: toRegexp2(queryString) })) })
+
+// const actionSearch = (queryString) =>
+//     async dispatch => {
+//         let searchData = await dispatch(actionPromise('search', gql(
+//             `query trackFind($query: String) {
+//             TrackFind(query:$query)
+//               {
+//                   originalFileName
+//                   url
+//                   id3 {
+//                           title
+//                           artist
+//                           album
+//                       }
+//               }
+//           }`, {
+//             query: JSON.stringify([toQuery(queryString),
+//             {
+//                 sort: [{ _id: -1 }], //сортировка в обратном хронологическом порядке
+//                 limit: [10],  //100 записей максимум
+//             }])
+//         }
+//         )))
+//         console.log(searchData)
+//     }

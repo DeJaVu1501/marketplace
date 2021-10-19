@@ -56,11 +56,12 @@ const loginCallback = () => {
                 Не зарегистрированы? <Link to='sign' className='mb-3'>Создать аккаунт</Link>
                 <Button name='Войти' isValid={isLoginValid()} callback={loginCallback} /> 
             </div> 
+                {(loggedIn === null) && <p>Неверный логин или пароль</p>}
                 {show && (!login || !password) && <LoginError />}
         </div>
   )
 }
 
 
-const ConnectLog = connect(state => ({loggedIn: state.authReducer}), {onLogin: actionFullLogin})(LoginForm)
+const ConnectLog = connect(state => ({loggedIn: state.promiseReducer?.login?.payload}), {onLogin: actionFullLogin})(LoginForm)
 export default ConnectLog

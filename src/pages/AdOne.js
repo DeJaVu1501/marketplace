@@ -11,8 +11,8 @@ export const Ad = ({getData,data, match:{params:{id}}}) => {
     if(data){
         return (
             <CPromiseComponent promiseName='AdFindOne'>
-                <div className="adone">
-                    <AdOne key={data._id} price = {data.price} title = {data.title} description={data.description}  images={data.images} />
+                <div>
+                    <AdOne key={data._id} price = {data.price} title = {data.title} description={data.description} owner ={data.owner} images={data.images} createdAt={data.createdAt} comments={data.comments}/>
                 </div>
             </CPromiseComponent>
         )

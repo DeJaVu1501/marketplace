@@ -23,6 +23,9 @@ import RoleRoute from './Components/PrivateRoute';
 import ConnectNav from './Components/NaviBar';
 import CProfile from './Components/Profile';
 import CPost from './pages/PostAd';
+import СChange from './pages/EditAd';
+import Profile from './pages/Profile';
+import AdSearch from './pages/Search';
 
 function App() {
   return (
@@ -32,10 +35,12 @@ function App() {
           <ConnectNav />
           <Switch>
             <RoleRoute exact path='/' roles ={['user']} component = {TypeAd}  />
-            <RoleRoute path='/home/:id' roles={['user']} component={TypeAdOne} />
+            <RoleRoute path='/home/:id' roles={['user']} component={TypeAdOne} exact/>
+            <RoleRoute path='/home/edit/:id' roles={['user']} component={СChange} exact/>
             <RoleRoute path='/login' roles={['unknown']} component={ConnectLog}/>
             <RoleRoute path='/sign' roles={['unknown']} component={ConnectSign}/>
-            <RoleRoute path='/profile' roles={['user']} component={CProfile} />
+            <RoleRoute path='/search/' roles={['unknown']} component={AdSearch} />
+            <RoleRoute path='/profile' roles={['user']} component={Profile} />
             <RoleRoute path='/post-ad' roles={['user']} component={CPost} />
             <RoleRoute path='/instruction' roles={['unknown']} component={Instruction} />
             <RoleRoute path='/advertisment' roles={['unknown']} component={Advertisment} />

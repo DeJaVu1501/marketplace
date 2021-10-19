@@ -18,22 +18,20 @@ export const AdFeed=({_id, price,title,description,images,comments,createdAt}) =
       }
     return (
         <Container>
-            <div className="row ad">
+            <div className="row ad ">
                 <div className="col img">
-                    <img src = {`http://marketplace.asmer.fs.a-level.com.ua/${images ? images[0]?.url : nofoto}`} />
+                    {images ?
+                        <img src = {`http://marketplace.asmer.fs.a-level.com.ua/${images[0]?.url}`} />
+                        : <img src={nofoto} />
+                    }
                 </div> 
-                <div className="col-6" info>   
+                <div className="col-6 info">   
                     <Link to={ `/home/${_id}`}>{title}</Link>
                     <p>{description}</p>
                 </div>
                 <div className="col price">   
                     <p>{`Цена: ${price ? price : "0"} грн.`}</p>
-                    <p>{`Добавлено: ${timeConverter(createdAt)}`}</p>
                 </div> 
-                <div>
-                    <p>{`Коментарии : ${comments ? comments[0]?.text : 'отсутвуют'}`}</p>
-                    <p>{`От : ${comments ? comments[0].owner.login : '-'}`}</p>
-                </div>   
             </div>
         </Container> 
     )
