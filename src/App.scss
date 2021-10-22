@@ -165,10 +165,10 @@ html,body {
     overflow-x: hidden;
 
     img {
-        max-width: 200px;
-        min-width: 200px;
-        max-height: 300px;
-        min-height: 150px;
+        max-width: 250px;
+        min-width: 250px;
+        max-height: 250px;
+        min-height: 250px;
         padding-left: 0px;
         border: 0;
     }
@@ -212,6 +212,17 @@ html,body {
         flex-direction: column;
         justify-content: flex-start;
         border-radius: 15px;
+        b {
+            font-weight: 600;
+            font-size: 30px;
+        }
+        input {
+            width: 50%;
+            margin-bottom: 15px;
+        }
+        button {
+            width: 50%;
+        }
     }
 }
 
@@ -221,9 +232,17 @@ html,body {
     padding: 25px 15px;
     background-color: whitesmoke;
     border-radius: 15px;
+    .carousel {
+        margin: 0 auto;
+        width: 50%;
+        img {
+            height: 45vh
+        }
+    }
 }
 
 .profile {
+    margin-top: 25px;
     img {
         width: 20vh;
         height: 20vh;

@@ -1,18 +1,44 @@
-import React ,{useState} from "react";
+import React ,{useState, useRef} from "react";
 import { connect } from "react-redux";
 import { actionPostAd } from "../actions";
 import { Container } from "react-bootstrap";
+import {useDropzone} from 'react-dropzone'
+import { Redirect ,useHistory} from "react-router";
 
 
 const Post = ({onPost}) => {
+    let history = useHistory()
     let [title,setTitle] = useState('')
     let [description,setDescription] = useState('')
     let [price,setPrice] = useState(0)
+    const loading = useRef()  
+    const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
+    if(acceptedFiles.length > 0 && !loading.current) {
+      loading.current = true
+    }
+
+    const files = acceptedFiles.map(file => (
+        <li key={file.name}>
+          {file.name}
+        </li>
+    ));
+
     return (
         <Container >
             <div className='d-flex flex-column align-items-start post'>
                 <label>Введите название</label>
                 <input value={title} onChange={e => setTitle(e.target.value)} placeholder='Например,Iphone 8'></input>
+            </div>
+            <div className='post'>
+                <div {...getRootProps({className: 'dropzone'})}>
+                  <input {...getInputProps() }/>
+                  <p>Фото, нажмите для добавления</p>
+                  <label>Первое фото будет на обложке объявления</label>
+                </div>
+                <aside>
+                    <h5>Фото: </h5>
+                    <ul>{files}</ul>
+                </aside>
             </div>
             <div className='d-flex flex-column align-items-start post'>
                 <label>Описание</label>
@@ -23,7 +49,7 @@ const Post = ({onPost}) => {
                 <input type={"number"} value={price} onChange={e => e.target.value>=0 ? setPrice(+e.target.value) : ""} placeholder='Цена' ></input>
             </div>
             <div className="d-flex flex-column align-items-end post">
-                <button onClick={()=> onPost(title,description,price)}>Опубликовать</button>
+                <button onClick={()=> onPost(title,description,price,acceptedFiles) && history.push('/')}>Опубликовать</button>
             </div>
         </Container>
     )

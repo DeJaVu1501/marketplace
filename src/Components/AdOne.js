@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import { Carousel } from 'react-responsive-carousel';
 import nofoto from '../images/placeholder.png'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import CCommentInput from "./CommentInput";
 
 export const AdOne=({price, title,description,images,comments,createdAt,owner}) => {
     function timeConverter(t){
@@ -27,20 +28,20 @@ export const AdOne=({price, title,description,images,comments,createdAt,owner}) 
                     
                 </Carousel>
                 <div className='mainInfo'>
-                    <p>{`Опубликовано: ${timeConverter(createdAt)}`}</p>
+                    <i>{`Опубликовано: ${timeConverter(createdAt)}`}</i>
                     <b>{title}</b>
                     <h4>{`${price ? price : "0"} грн.`}</h4>
                     <p>{description}</p>
                     <p>{`Владелец: ${owner.login}`}</p>
-                    <p>{`На marketplace c: ${timeConverter(owner.createdAt)}`}</p>
+                    <p>{`Зарегистрирован на marketplace: ${timeConverter(owner.createdAt)}`}</p>
                 </div>
                 <div className='mainInfo'>
                     {comments ? 
                         comments.map(comment => {
-                            return (<div><p>{`Коментарии : ${comment.text}`}</p>
-                            <p>{`От: ${comment.owner.login}`}</p></div>)})
+                            return (<div><p>{` ${comment.owner.login} : ${comment.text}`}</p></div>)})
                             : <p>Коментариев нет</p>
                     }
+                <CCommentInput />
                 </div>
             </div>
         </Container>

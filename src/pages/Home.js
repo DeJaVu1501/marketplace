@@ -1,15 +1,30 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {connect}   from 'react-redux';
 import {AdFeed} from "../Components/CAdFeed";
-import {AdOne} from "../Components/AdOne";
-import { actionTypeAd ,actionTypeAdOne} from "../actions";
-import { Redirect } from "react-router";
-import {useHistory} from 'react-router-dom';
-import Loader from "../Components/PreLoader";
-import { CAdfeed } from "../Components/CAdFeed";
+import { actionTypeAd} from "../actions";
 import CPromiseComponent from "../Components/PromiseComponent";
+
 export const Home = ({getData,data}) => {
-    useEffect(()=>getData(),[])
+    const [fetching,setFetching] = useState(true)
+    const [current,setCurrent] = useState(0)
+    useEffect(()=>{
+        if(fetching){
+            getData()
+        }},[fetching])
+
+    useEffect(() => {
+        document.addEventListener('scroll',scrollHandler)
+        return function() {
+            document.removeEventListener('scroll',scrollHandler)
+        }
+    },[])
+
+    const scrollHandler = (e) => {
+        if(e.target.documentElement.scrollHeight - (window.innerHeight + e.target.documentElement.scrollTop)< 100){
+           setFetching(true)
+           console.log(e.target.documentElement.scrollHeight)
+        }
+    }
     if(data){
         return (
             <CPromiseComponent promiseName='AdFind'>

@@ -75,8 +75,10 @@ export const actionFullRegister = (login,password) =>
     }
   }
 
-export const actionTypeAd = (_id,title) =>
-    actionPromise('AdFind', shopGQL(`
+export const actionTypeAd = (title, skip = 0) =>
+async(dispatch,getState) => {
+    let ads = getState().promiseReducer.AdFind?.payload?.data.AdFind
+    await dispatch(actionPromise('AdFind', shopGQL(`
             query Ad($query:String){
               AdFind(query:$query){
                 _id  
@@ -93,7 +95,13 @@ export const actionTypeAd = (_id,title) =>
                 owner {login}
               }
             }
-        `, {query: JSON.stringify([{field: title},{sort: [{_id: -1}]}])}))
+        `, {query: JSON.stringify([{field: title},{sort: [{_id: -1}],skip : [skip], limit: [50]}])}
+        )))
+        if(ads) {
+          ads.concat(skip)
+        }
+      }
+      
 
 export const actionTypeAdOne = (id) => 
           actionPromise('AdFindOne',shopGQL(`
@@ -127,19 +135,47 @@ export const actionTypeAdOne = (id) =>
 //               }
 //             }`,{query: JSON.stringify([{}])}))
 
-export const actionPostAd = (title,description,price,_id) =>
-            actionPromise('PostAd',shopGQL(`
-            mutation Post($ad: AdInput){
-              AdUpsert(ad: $ad) {
-                  _id
-                  title
-                  description
-                  price
-                  images {
-                    url
+export const actionAddComment = (text) => 
+async(dispatch,getState) => {
+  let adId = getState().promiseReducer.AdFindOne.payload.data.AdFindOne._id
+  let addedCom = await dispatch(actionPromise('AddComment',shopGQL(`
+  mutation Comment($comment: CommentInput){
+    CommentUpsert(comment: $comment){
+      _id
+      text
+      owner {login}
+      ad {_id}
+    }
+  }`,{comment: {text,ad: {_id: adId}}})))
+  if(addedCom) {
+    dispatch(actionTypeAdOne(adId))
+  }
+}
+
+
+export const actionPostAd = (title,description,price,files,_id) =>
+            async dispatch => {
+              let res = await dispatch(actionUploadFiles(files))
+              let imagesId = res.map(({_id}) => ({_id}))
+              if(res){
+                let upsert = actionPromise('PostAd',shopGQL(`
+                mutation Post($ad: AdInput){
+                  AdUpsert(ad: $ad) {
+                      _id
+                      title
+                      description
+                      price
+                      images {
+                        url
+                      }
+                    }
+                  }`,{ad: {title,description,price,images: imagesId,_id}}))
+                  if(upsert) {
+                    await dispatch(actionTypeAd())
+                    await dispatch(actionMyPosts())
                   }
-                }
-              }`,{ad: {title,description,price,_id}}))
+              }
+            }
 
 export const actionMyPosts = () =>
     async (dispatch,getState) => {
@@ -155,31 +191,29 @@ export const actionMyPosts = () =>
               url
             }
             comments {
-              _id text owner {login} answerTo { owner { login}}
+              _id text owner {login} answerTo { owner { login}} ad {_id}
             }
           }
-        }`,{query: JSON.stringify([{___owner: userId}])})))
+        }`,{query: JSON.stringify([{___owner: userId},{sort: [{_id: -1}]}])})))
       }
-    
-// export const actionCommentAdd = () =>
-//               actionPromise('CommentAdd',shopGQL(`
-//               mutation Comment($comment : CommentInput){
-//                 CommentUpsert(comment: $comment) {
-//                   _id
-//                   ad
-//                   text
-//                 }
-//               }`,{comment:{text,answerTo,ad:{_id}}}))
+
 
 export const actionUploadFile = (file) => {
+  return actionPromise('photo',fetchFiles(file))
+};
+
+const fetchFiles = (file) => {  
   let fd = new FormData
   fd.append('photo', file)
-  return actionPromise('photo',fetch('/upload', {
+  return fetch('/upload', {
     method: "POST",
     headers: localStorage.authToken ? {Authorization: 'Bearer ' + localStorage.authToken} : {},
     body: fd
-  }).then(res => res.json()))
-};
+  }).then(res => res.json())
+}
+
+export const actionUploadFiles = (files) => 
+  actionPromise('photos',Promise.all(files.map(file => fetchFiles(file))))
 
 const actionAvaAdd = (avaId) => 
 async (dispatch,getState) => {
@@ -214,7 +248,7 @@ export const actionUserInfo = () =>
   }
 
 
-const regexp = (string) => `/${string.split([" "]).join(['|']).trim()}/`
+const regexp = (string) => `/${string.split(" ").join('|').trim()}/`
 const toQuery = (queryString, fields = ["title", "description"]) => ({ $or: fields.map(string => ({ [string]: regexp(queryString) }))})
 export const actionSearch = (queryString) => 
 async (dispatch) =>
@@ -238,30 +272,3 @@ async (dispatch) =>
   )
 ))
 
-// const toRegexp2 = queryString => `/${queryString.split([" "]).join(['|']).trim()}/`
-// const toQuery = (queryString, fields = ["id3.artist", "id3.title", "id3.album"]) => ({ $or: fields.map(x => ({ [x]: toRegexp2(queryString) })) })
-
-// const actionSearch = (queryString) =>
-//     async dispatch => {
-//         let searchData = await dispatch(actionPromise('search', gql(
-//             `query trackFind($query: String) {
-//             TrackFind(query:$query)
-//               {
-//                   originalFileName
-//                   url
-//                   id3 {
-//                           title
-//                           artist
-//                           album
-//                       }
-//               }
-//           }`, {
-//             query: JSON.stringify([toQuery(queryString),
-//             {
-//                 sort: [{ _id: -1 }], //сортировка в обратном хронологическом порядке
-//                 limit: [10],  //100 записей максимум
-//             }])
-//         }
-//         )))
-//         console.log(searchData)
-//     }

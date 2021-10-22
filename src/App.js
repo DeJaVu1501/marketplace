@@ -1,27 +1,18 @@
 import React from 'react';
 import './App.scss';
-import {Provider, connect}   from 'react-redux';
-import thunk from 'redux-thunk';
-import {createStore, combineReducers, applyMiddleware} from 'redux';
-import {Navibar} from './Components/NaviBar';
+import {Provider}   from 'react-redux';
 import Footer from './Components/Footer';
 import { createBrowserHistory } from "history";
-import { actionAuthLogout } from './actions';
-
 import store from './reducers';
 import ConnectLog from './pages/Login';
-
-import { Router,Switch, Route, Link, useHistory } from "react-router-dom";
-
-import TypeAd, {Home} from "./pages/Home";
+import { Router,Switch } from "react-router-dom";
+import TypeAd from "./pages/Home";
 import TypeAdOne from './pages/AdOne';
 import ConnectSign from './pages/Sign';
-import {Login} from "./pages/Login";
 import {Instruction} from "./pages/Instriction";
 import {Advertisment} from "./pages/Advertisment";
 import RoleRoute from './Components/PrivateRoute';
 import ConnectNav from './Components/NaviBar';
-import CProfile from './Components/Profile';
 import CPost from './pages/PostAd';
 import СChange from './pages/EditAd';
 import Profile from './pages/Profile';
@@ -34,12 +25,12 @@ function App() {
       <Router history = {createBrowserHistory()}>
           <ConnectNav />
           <Switch>
-            <RoleRoute exact path='/' roles ={['user']} component = {TypeAd}  />
-            <RoleRoute path='/home/:id' roles={['user']} component={TypeAdOne} exact/>
-            <RoleRoute path='/home/edit/:id' roles={['user']} component={СChange} exact/>
-            <RoleRoute path='/login' roles={['unknown']} component={ConnectLog}/>
-            <RoleRoute path='/sign' roles={['unknown']} component={ConnectSign}/>
-            <RoleRoute path='/search/' roles={['unknown']} component={AdSearch} />
+            <RoleRoute path='/' roles ={['user']} component = {TypeAd} exact />
+            <RoleRoute path='/home/:id' roles={['user']} component={TypeAdOne} exact />
+            <RoleRoute path='/home/edit/:id' roles={['user']} component={СChange} exact />
+            <RoleRoute path='/login' roles={['unknown']} component={ConnectLog} />
+            <RoleRoute path='/sign' roles={['unknown']} component={ConnectSign} />
+            <RoleRoute path='/search/:searchName' roles={['unknown']} component={AdSearch} />
             <RoleRoute path='/profile' roles={['user']} component={Profile} />
             <RoleRoute path='/post-ad' roles={['user']} component={CPost} />
             <RoleRoute path='/instruction' roles={['unknown']} component={Instruction} />
@@ -51,6 +42,5 @@ function App() {
     </>
   );
 }
-
 
 export default App;

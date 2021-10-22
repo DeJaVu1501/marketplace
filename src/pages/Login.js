@@ -7,10 +7,7 @@ import LoginError from "../Components/RegErrors/LoginError";
 import showPwdImg from '../images/3844476-eye-see-show-view-watch_110339.svg';
 import hidePwdImg from '../images/3844477-disable-eye-inactive-see-show-view-watch_110343.svg';
 import {Link, useHistory} from 'react-router-dom';
-import { authReducer } from "../reducers/authReducer";
-import { Redirect } from "react-router";
-import { Nav } from "react-bootstrap";
-import CPromiseComponent from "../Components/PromiseComponent";
+
 
 const LoginForm = ({onLogin,loggedIn}) => {
   const [login,setLogin] = useState('')

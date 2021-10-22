@@ -4,18 +4,6 @@ import { Container } from "react-bootstrap";
 import nofoto from '../images/placeholder.png'
 
 export const AdFeed=({_id, price,title,description,images,comments,createdAt}) => {
-    function timeConverter(t){
-        let a = new Date(+t);
-        let months = ['Января','Февраля','Марта','Апреля','Мая','Июня','Июля','Августа','Сентября','Октября','Ноября','Декабря'];
-        let year = a.getFullYear();
-        let month = months[a.getMonth()];
-        let date = a.getDate();
-        let hour = a.getHours();
-        let min = a.getMinutes();
-        let sec = a.getSeconds();
-        let time = date + ' ' + month + ' ' + year + ' в ' + hour + ':' + min ;
-        return time;
-      }
     return (
         <Container>
             <div className="row ad ">

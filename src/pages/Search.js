@@ -3,14 +3,13 @@ import {connect}   from 'react-redux';
 import {AdFeed} from "../Components/CAdFeed";
 import { actionSearch} from "../actions";
 import CPromiseComponent from "../Components/PromiseComponent";
-export const Search = ({getData,data}) => {
-    useEffect(()=>getData(),[])
-    
+import ErrorSearch from "../Components/RegErrors/SearchError";
+export const Search = ({getData,data,match:{params:{searchName}}}) => {
+    useEffect(()=>getData(searchName),[searchName])
         return (
             <CPromiseComponent promiseName='SearchAd'>
-                <div>
-                    {data?.map(ad => <AdFeed key={ad._id} _id = {ad. _id} price = {ad.price} title = {ad.title} description={ad.description} images={ad.images} />)}
-                </div>
+                {data && Object.keys(data).length === 0 && <ErrorSearch />}
+                {data?.map(ad => <AdFeed key={ad._id} _id = {ad. _id} price = {ad.price} title = {ad.title} description={ad.description} images={ad.images}/>)}
             </CPromiseComponent>
         )
     

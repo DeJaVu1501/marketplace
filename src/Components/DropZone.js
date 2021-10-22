@@ -7,7 +7,6 @@ import {useDropzone} from 'react-dropzone'
 export function MyDropzone({onSend}) {
   const loading = useRef()  
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
-    // const files = acceptedFiles.map(file => <li key={file.path}>{file.path}</li>);
     if(acceptedFiles.length > 0 && !loading.current) {
       onSend(acceptedFiles[0])
       loading.current = true
