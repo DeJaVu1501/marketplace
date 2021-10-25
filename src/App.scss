@@ -3,7 +3,7 @@
 html,body {
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden;
+    // overflow-x: hidden;
     height: 100%;
 
     button {
@@ -86,12 +86,12 @@ html,body {
 }
 
 
+    
 .divLogin {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
     input {
         width: 200px;
     }
@@ -99,7 +99,6 @@ html,body {
         display: flex;
         flex-direction: column;
         position: relative;
-
         a {
             text-decoration: none;
             color:black;
@@ -134,16 +133,13 @@ html,body {
         display: flex;
         flex-direction: column;
     }
+
     .pwd-container1 {
         display: flex;
         flex-direction: column;
         position: relative;
     }
-    .pwd-container2 {
-        display: flex;
-        flex-direction: column;
-        position: relative;
-    }
+
     img {
         position: absolute;
         cursor: pointer;
@@ -152,6 +148,7 @@ html,body {
         left: 85%;
     }
 }
+
 
 .ad {
     display: flex;
@@ -190,6 +187,15 @@ html,body {
     }
 }
 
+.dropzone {
+    margin-top: 10px ;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    border: 1px dotted rgb(54, 54, 54);
+    padding: 0 10px;
+}
+
 .AdPage {
     display: flex;
     justify-content: center;
@@ -214,7 +220,8 @@ html,body {
         border-radius: 15px;
         b {
             font-weight: 600;
-            font-size: 30px;
+            font-size: 35px;
+            padding: 15px 0;
         }
         input {
             width: 50%;
@@ -225,7 +232,6 @@ html,body {
         }
     }
 }
-
 
 .post {
     margin-top: 25px;
@@ -294,16 +300,18 @@ html,body {
 }
 
 .foter__indent {
-    min-height: 150px;
+    min-height: 125px;
 }
 
 footer {
     background: #002f34;
     color: white;
     padding-top: 25px;
+}
+
+.list-unstyled {
     a {
         color: white;
         text-decoration: none;
     }
 }
-

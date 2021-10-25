@@ -32,8 +32,7 @@ const Post = ({onPost}) => {
             <div className='post'>
                 <div {...getRootProps({className: 'dropzone'})}>
                   <input {...getInputProps() }/>
-                  <p>Фото, нажмите для добавления</p>
-                  <label>Первое фото будет на обложке объявления</label>
+                  <p>Фото, нажмите для добавления. Первое фото будет на обложке объявления</p>
                 </div>
                 <aside>
                     <h5>Фото: </h5>

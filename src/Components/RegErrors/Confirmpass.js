@@ -2,7 +2,7 @@ import React from 'react';
 
 const ConfirmPass = () => {
     return (
-        <div className='confirmPassword-error__wrapper'>
+        <div className='error__wrapper'>
             <p>Пароли не совпадают!</p>
         </div>
     )

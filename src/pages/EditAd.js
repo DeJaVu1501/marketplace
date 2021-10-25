@@ -60,8 +60,7 @@ const Post = ({data,onChange,match:{params:{id}},getData}) => {
                     <div className='post'>
                         <div {...getRootProps({className: 'dropzone'})}>
                             <input onChange={e => setImages(e.target.value)} {...getInputProps() }/>
-                            <p>Фото, нажмите для обновления</p>
-                            <label>Первое фото будет на обложке объявления</label>
+                            <p>Фото, нажмите для обновления. Первое фото будет на обложке объявления</p>
                         </div>
                         <aside>
                             <h5>Фото: </h5>

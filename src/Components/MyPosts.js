@@ -14,7 +14,7 @@ export const MyFeed=({_id, price, owner,title,description,images,comments,create
                         : <img src={nofoto} />
                     }
                 </div> 
-                <div className="col-6" info>   
+                <div className="col-6">   
                     <Link to={ `/home/${_id}`}>{title}</Link>
                     <p>{description}</p>
                 </div>

@@ -75,10 +75,10 @@ export const actionFullRegister = (login,password) =>
     }
   }
 
-export const actionTypeAd = (title, skip = 0) =>
+export const actionTypeAd = (skip = 0) =>
 async(dispatch,getState) => {
-    let ads = getState().promiseReducer.AdFind?.payload?.data.AdFind
-    await dispatch(actionPromise('AdFind', shopGQL(`
+    let ads = getState().promiseReducer.AdFind?.payload?.data.AdFind || []
+    let res = await shopGQL(`
             query Ad($query:String){
               AdFind(query:$query){
                 _id  
@@ -95,14 +95,13 @@ async(dispatch,getState) => {
                 owner {login}
               }
             }
-        `, {query: JSON.stringify([{field: title},{sort: [{_id: -1}],skip : [skip], limit: [50]}])}
-        )))
+        `, {query: JSON.stringify([{},{sort: [{_id: -1}],skip : [ads.length], limit: [50]}])}
+        )
         if(ads) {
-          ads.concat(skip)
+          dispatch(actionResolved('AdFind',{data: {AdFind : [...ads, ...res?.data?.AdFind]}}))
         }
       }
       
-
 export const actionTypeAdOne = (id) => 
           actionPromise('AdFindOne',shopGQL(`
             query Ad($query:String){
@@ -122,19 +121,6 @@ export const actionTypeAdOne = (id) =>
               }
             }`,{query: JSON.stringify([{_id:id}])}))
 
-
-// export const actionComments = (ad) => 
-//             actionPromise('Comments',shopGQL(`
-//             query Comments($query: String){
-//               CommentFind(query: $query){
-//                 _id
-//                 text
-//                 owner {login}
-//                 ad {_id}
-//                 answerTo {text owner{login}}
-//               }
-//             }`,{query: JSON.stringify([{}])}))
-
 export const actionAddComment = (text) => 
 async(dispatch,getState) => {
   let adId = getState().promiseReducer.AdFindOne.payload.data.AdFindOne._id
@@ -151,7 +137,6 @@ async(dispatch,getState) => {
     dispatch(actionTypeAdOne(adId))
   }
 }
-
 
 export const actionPostAd = (title,description,price,files,_id) =>
             async dispatch => {

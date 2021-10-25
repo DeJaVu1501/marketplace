@@ -6,7 +6,9 @@ import CPromiseComponent from "../Components/PromiseComponent";
 
 export const Home = ({getData,data}) => {
     const [fetching,setFetching] = useState(true)
-    const [current,setCurrent] = useState(0)
+    
+    useEffect(()=> setFetching(false),[data])
+
     useEffect(()=>{
         if(fetching){
             getData()
@@ -20,7 +22,7 @@ export const Home = ({getData,data}) => {
     },[])
 
     const scrollHandler = (e) => {
-        if(e.target.documentElement.scrollHeight - (window.innerHeight + e.target.documentElement.scrollTop)< 100){
+        if(e.target.documentElement.scrollHeight - (window.innerHeight + e.target.documentElement.scrollTop) < 300){
            setFetching(true)
            console.log(e.target.documentElement.scrollHeight)
         }

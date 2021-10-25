@@ -15,7 +15,7 @@ export const AdOne=({price, title,description,images,comments,createdAt,owner}) 
         let hour = a.getHours();
         let min = a.getMinutes();
         let sec = a.getSeconds();
-        let time = date + ' ' + month + ' ' + year + ' в ' + hour + ':' + min ;
+        let time = date + ' ' + month + ' ' + year + ' в ' + hour + ':' + (min < 10 ? `0${min}`: min) ;
         return time;
       }
     return (

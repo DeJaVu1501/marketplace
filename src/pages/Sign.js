@@ -48,7 +48,7 @@ const Sign = ({onSign,Reg}) => {
     }
 
     return (
-      <div className="divSign">
+      <div className="divSign mt-5">
           <h4>Регистрация</h4>
           <div className="login-container">
               <label>Придумайте логин</label>
@@ -59,7 +59,7 @@ const Sign = ({onSign,Reg}) => {
               <input value={password} type={open ? "text" : "password"} onChange={e => setPassword(e.target.value)}  placeholder="Пароль"  />
               <img src={open ? hidePwdImg : showPwdImg} onClick={() => setOpen(!open)}/>
           </div>
-          <div className='pwd-container2 mb-3'>
+          <div className='pwd-container1 mb-3'>
               <label>Повторите пароль</label>
               <input value={password2} type={open2 ? "text" : "password"} onChange={e => setPassword2(e.target.value)}  placeholder="Пароль"  />
               <img src={open2 ? hidePwdImg : showPwdImg} onClick={() => setOpen2(!open2)}/>
@@ -74,8 +74,7 @@ const Sign = ({onSign,Reg}) => {
                 {show3 && (password !== password2) && <ConfirmPass />}
                 {(Reg === null) && <p>Данный пользователь уже зарегистрирован</p>}
                 {Reg && <Redirect push to='/'/>}
-      </div>
-
+        </div>
     )
 }
 

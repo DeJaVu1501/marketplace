@@ -1,5 +1,7 @@
 import React from "react";
 
-export const Advertisment = () => (
+const Advertisment = () => (
     <h1>Advertisment</h1>
 )
+
+export default Advertisment

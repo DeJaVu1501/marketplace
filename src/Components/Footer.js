@@ -12,7 +12,7 @@ const Footer = () =>
                         <li><Link to="/instruction">Инструкция</Link></li>
                     </ul>
                 </div>
-
+                
                 <div className="col-md-6 mb-md-0 mb-3">
                     <ul className="list-unstyled">
                         <li><Link to="/advertisment">Реклама</Link></li>
